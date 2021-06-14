@@ -16,6 +16,12 @@ public class Player {
     @Column(name = "seniority")
     private boolean isSenior;
 
+    @Column(name = "game_id", insertable = false, updatable = false)
+    private Integer gameId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Game game;
+
     public Player() {
     }
 
@@ -64,6 +70,22 @@ public class Player {
 
     public void setSenior(boolean senior) {
         isSenior = senior;
+    }
+
+    public Integer getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(Integer gameId) {
+        this.gameId = gameId;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     @Override
