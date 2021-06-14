@@ -43,7 +43,7 @@ public class PlayerController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Player> updateSenior(@RequestBody Player player) {
+    public ResponseEntity<Player> updatePlayer(@RequestBody Player player) {
 
         return status(HttpStatus.OK).body(service.updatePlayer(player));
     }
