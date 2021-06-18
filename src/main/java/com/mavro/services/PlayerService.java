@@ -2,6 +2,7 @@ package com.mavro.services;
 
 import com.mavro.dto.PlayerDetails;
 import com.mavro.entities.Player;
+import com.mavro.exceptions.PlayerNotFoundException;
 import com.mavro.repositories.PlayerRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
@@ -45,12 +46,17 @@ public class PlayerService {
         return player;
     }
 
-    public void deletePlayerById(int id){
-        playerRepository.deleteById(id);
-    }
-
     public Player updatePlayer(Player player) {
         return playerRepository.save(player);
+    }
+
+    public Player findOneById(int id) {
+        return playerRepository.findById(id)
+                .orElseThrow(() -> new PlayerNotFoundException("Player not found."));
+    }
+
+    public void deletePlayerById(int id){
+        playerRepository.deleteById(id);
     }
 
 }

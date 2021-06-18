@@ -3,6 +3,7 @@ package com.mavro.services;
 import com.mavro.dto.GameDetails;
 import com.mavro.entities.Game;
 import com.mavro.entities.Player;
+import com.mavro.exceptions.GameNotFoundException;
 import com.mavro.exceptions.UserNotFoundException;
 import com.mavro.repositories.GameRepository;
 import com.mavro.repositories.PlayerRepository;
@@ -59,7 +60,7 @@ public class GameService {
 
     public Game findOneById(int id) {
         return gameRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("Not found."));
+                .orElseThrow(() -> new GameNotFoundException("Game not found."));
     }
 
     public void deleteGameById(int id) {
