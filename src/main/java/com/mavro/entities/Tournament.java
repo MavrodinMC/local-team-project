@@ -15,7 +15,7 @@ public class Tournament {
 
     @OneToMany(
             mappedBy = "tournament",
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.REMOVE,
             orphanRemoval = true
     )
     private List<Game> games = new ArrayList<>();
