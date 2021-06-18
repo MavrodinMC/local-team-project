@@ -39,6 +39,12 @@ public class GameController {
         return status(HttpStatus.OK).body(gameService.updateGame(game));
     }
 
+    @PutMapping("/set/{gameId}/{playerId}")
+    public ResponseEntity<?> addPlayersToAGame(@PathVariable("gameId") int gameId, @PathVariable("playerId") int playerId) {
+        gameService.addPlayersToAGame(gameId, playerId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteGameById(@PathVariable("id") int id) {
         gameService.deleteGameById(id);

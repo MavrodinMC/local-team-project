@@ -30,10 +30,6 @@ public class PlayerController {
         }
     }
 
-//    @GetMapping("{isSenior}")
-//    public ResponseEntity<List<Player>> getAllJuniors(@RequestParam(value="isSenior") boolean isSenior) {
-//        return status(HttpStatus.OK).body(service.getAllJuniors(isSenior));
-//    }
 
     @PostMapping("/add")
     public ResponseEntity<Player> addPlayer(@RequestBody PlayerDetails playerDetails) {

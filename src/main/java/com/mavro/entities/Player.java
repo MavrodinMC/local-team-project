@@ -1,6 +1,10 @@
 package com.mavro.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Player {
@@ -16,11 +20,9 @@ public class Player {
     @Column(name = "seniority")
     private boolean isSenior;
 
-    @Column(name = "game_id", insertable = false, updatable = false)
-    private Integer gameId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Game game;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "players")
+    private Set<Game> games = new HashSet<>();
 
     public Player() {
     }
@@ -72,20 +74,12 @@ public class Player {
         isSenior = senior;
     }
 
-    public Integer getGameId() {
-        return gameId;
+    public Set<Game> getGames() {
+        return games;
     }
 
-    public void setGameId(Integer gameId) {
-        this.gameId = gameId;
-    }
-
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
+    public void setGames(Set<Game> games) {
+        this.games = games;
     }
 
     @Override

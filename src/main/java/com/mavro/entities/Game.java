@@ -2,6 +2,7 @@ package com.mavro.entities;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -25,6 +26,17 @@ public class Game {
     private String score;
     private String referee;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "games_players",
+            joinColumns = @JoinColumn(name = "game_id"),
+            inverseJoinColumns = @JoinColumn(name = "player_id")
+    )
+    private Set<Player> players = new HashSet<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Tournament tournament;
+
     public Game() {
     }
 
@@ -37,13 +49,6 @@ public class Game {
         this.referee = referee;
         this.score = score;
     }
-
-    @OneToMany(
-            mappedBy = "game",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private Set<Player> players = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -101,22 +106,56 @@ public class Game {
         this.referee = referee;
     }
 
+    public Tournament getTournament() {
+        return tournament;
+    }
+
+    public void setTournament(Tournament tournament) {
+        this.tournament = tournament;
+    }
+
     public Set<Player> getPlayers() {
         return players;
     }
 
     public void setPlayers(Set<Player> players) {
         this.players = players;
-        this.players.forEach(a -> a.setGame(this));
     }
 
     public void addPlayer(Player player) {
         players.add(player);
-        player.setGame(this);
+        player.getGames().add(this);
     }
 
     public void removePlayer(Player player) {
         players.remove(player);
-        player.setGame(null);
+        player.getGames().remove(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Game game = (Game) o;
+        return id.equals(game.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "id=" + id +
+                ", date='" + date + '\'' +
+                ", location='" + location + '\'' +
+                ", homeTeam='" + homeTeam + '\'' +
+                ", awayTeam='" + awayTeam + '\'' +
+                ", score='" + score + '\'' +
+                ", referee='" + referee + '\'' +
+                ", players=" + players +
+                '}';
     }
 }

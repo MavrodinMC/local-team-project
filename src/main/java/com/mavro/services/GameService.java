@@ -2,6 +2,8 @@ package com.mavro.services;
 
 import com.mavro.dto.GameDetails;
 import com.mavro.entities.Game;
+import com.mavro.entities.Player;
+import com.mavro.exceptions.UserNotFoundException;
 import com.mavro.repositories.GameRepository;
 import com.mavro.repositories.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,12 +40,26 @@ public class GameService {
         return gameRepository.save(game);
     }
 
+    public void addPlayersToAGame(int gameId, int playerId) {
+
+        Game game = gameRepository.findById(gameId)
+                .orElseThrow(()-> new UserNotFoundException("Not found."));
+
+        Player player = playerRepository.findById(playerId)
+                .orElseThrow(() -> new UserNotFoundException("Not found."));
+
+        game.addPlayer(player);
+        gameRepository.save(game);
+
+    }
+
     public Game updateGame(Game game) {
         return gameRepository.save(game);
     }
 
     public Game findOneById(int id) {
-        return gameRepository.getOne(id);
+        return gameRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("Not found."));
     }
 
     public void deleteGameById(int id) {
