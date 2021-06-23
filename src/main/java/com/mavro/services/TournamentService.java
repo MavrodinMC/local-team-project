@@ -1,5 +1,6 @@
 package com.mavro.services;
 
+import com.mavro.dto.TournamentRequest;
 import com.mavro.entities.Tournament;
 import com.mavro.exceptions.TournamentNotFoundException;
 import com.mavro.repositories.TournamentRepository;
@@ -22,10 +23,11 @@ public class TournamentService {
         return tournamentRepository.findAll();
     }
 
-    public Tournament addTournament(String name) {
+    public Tournament addTournament(TournamentRequest request) {
         Tournament tournament = new Tournament();
-        tournament.setName(name);
-        return tournamentRepository.save(tournament);
+        tournament.setName(request.getName());
+        tournamentRepository.save(tournament);
+        return tournament;
     }
 
     public Tournament updateTournament(Tournament tournament) {

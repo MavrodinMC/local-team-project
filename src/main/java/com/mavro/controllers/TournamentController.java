@@ -1,5 +1,6 @@
 package com.mavro.controllers;
 
+import com.mavro.dto.TournamentRequest;
 import com.mavro.entities.Tournament;
 import com.mavro.services.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,9 @@ public class TournamentController {
         return new ResponseEntity<>(tournamentService.findOneById(tournamentId), HttpStatus.OK);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Tournament> addTournament(@RequestBody String name) {
-        return new ResponseEntity<>(tournamentService.addTournament(name), HttpStatus.CREATED);
+    @PostMapping(value = "/add")
+    public ResponseEntity<Tournament> addTournament(@RequestBody TournamentRequest request) {
+        return new ResponseEntity<>(tournamentService.addTournament(request), HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
