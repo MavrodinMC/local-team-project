@@ -1,5 +1,7 @@
 package com.mavro.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,7 @@ public class Tournament {
 
     private String name;
 
+    @JsonIgnore
     @OneToMany(
             mappedBy = "tournament",
             cascade = CascadeType.REMOVE,
