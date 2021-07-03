@@ -3,7 +3,6 @@ package com.mavro.services;
 import com.mavro.entities.RefreshToken;
 import com.mavro.exceptions.RefreshTokenNotFoundException;
 import com.mavro.repositories.RefreshTokenRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,7 +15,6 @@ public class RefreshTokenService {
 
     private final RefreshTokenRepository refreshTokenRepository;
 
-    @Autowired
     public RefreshTokenService(RefreshTokenRepository refreshTokenRepository) {
         this.refreshTokenRepository = refreshTokenRepository;
     }

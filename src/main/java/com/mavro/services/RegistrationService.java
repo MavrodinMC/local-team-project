@@ -9,7 +9,6 @@ import com.mavro.exceptions.UserNotFoundException;
 import com.mavro.jwtUtils.JwtProvider;
 import com.mavro.repositories.RoleRepository;
 import com.mavro.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -31,7 +30,6 @@ public class RegistrationService {
   private final JwtProvider jwtProvider;
   private final RefreshTokenService refreshTokenService;
 
-  @Autowired
     public RegistrationService(PasswordEncoder passwordEncoder,
                                RoleRepository roleRepository,
                                UserRepository userRepository,

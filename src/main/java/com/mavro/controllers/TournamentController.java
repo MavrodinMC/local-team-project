@@ -5,7 +5,6 @@ import com.mavro.dto.TournamentRequest;
 import com.mavro.entities.Game;
 import com.mavro.entities.Tournament;
 import com.mavro.services.TournamentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +19,6 @@ public class TournamentController {
 
     private final TournamentService tournamentService;
 
-    @Autowired
     public TournamentController(TournamentService tournamentService) {
         this.tournamentService = tournamentService;
     }

@@ -30,6 +30,10 @@ public class PlayerController {
         }
     }
 
+    @GetMapping("/view")
+    public ResponseEntity<Player> getOneById(@RequestParam("playerId") int playerId) {
+        return new ResponseEntity<>(service.findOneById(playerId), HttpStatus.OK);
+    }
 
     @PostMapping("/add")
     public ResponseEntity<Player> addPlayer(@RequestBody PlayerDetails playerDetails) {

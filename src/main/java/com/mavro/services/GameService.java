@@ -7,7 +7,6 @@ import com.mavro.exceptions.GameNotFoundException;
 import com.mavro.exceptions.UserNotFoundException;
 import com.mavro.repositories.GameRepository;
 import com.mavro.repositories.PlayerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +17,6 @@ public class GameService {
     private final GameRepository gameRepository;
     private final PlayerRepository playerRepository;
 
-    @Autowired
     public GameService(GameRepository gameRepository, PlayerRepository playerRepository) {
         this.gameRepository = gameRepository;
         this.playerRepository = playerRepository;

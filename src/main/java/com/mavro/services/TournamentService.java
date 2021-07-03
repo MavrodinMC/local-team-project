@@ -7,7 +7,6 @@ import com.mavro.entities.Tournament;
 import com.mavro.exceptions.TournamentNotFoundException;
 import com.mavro.repositories.GameRepository;
 import com.mavro.repositories.TournamentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +18,6 @@ public class TournamentService {
     private final GameService gameService;
     private final GameRepository gameRepository;
 
-    @Autowired
     public TournamentService(TournamentRepository tournamentRepository, GameService gameService,
                              GameRepository gameRepository) {
         this.tournamentRepository = tournamentRepository;

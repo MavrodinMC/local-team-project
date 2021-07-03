@@ -50,8 +50,8 @@ public class PlayerService {
         return playerRepository.save(player);
     }
 
-    public Player findOneById(int id) {
-        return playerRepository.findById(id)
+    public Player findOneById(int playerId) {
+        return playerRepository.findById(playerId)
                 .orElseThrow(() -> new PlayerNotFoundException("Player not found."));
     }
 
