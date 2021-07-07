@@ -1,8 +1,10 @@
 package com.mavro.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +16,15 @@ public class Player {
     private Integer id;
 
     private String name;
+    private int goals;
+
+    @Column(name = "shirt_number")
+    private int shirtNumber;
+
+    @Column(name = "date_of_birth")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate dateOfBirth;
+
     private String position;
     private String foot;
 
@@ -27,10 +38,13 @@ public class Player {
     public Player() {
     }
 
-    public Player(String name, String position, String foot, boolean isSenior) {
+    public Player(String name,int goals, int shirtNumber, LocalDate dateOfBirth, String position, String foot, boolean isSenior) {
         this.name = name;
+        this.goals = goals;
+        this.shirtNumber = shirtNumber;
         this.position = position;
         this.foot = foot;
+        this.dateOfBirth = dateOfBirth;
         this.isSenior = isSenior;
     }
 
@@ -48,6 +62,30 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getGoals() {
+        return goals;
+    }
+
+    public void setGoals(int goals) {
+        this.goals = goals;
+    }
+
+    public int getShirtNumber() {
+        return shirtNumber;
+    }
+
+    public void setShirtNumber(int shirtNumber) {
+        this.shirtNumber = shirtNumber;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getPosition() {
@@ -87,6 +125,9 @@ public class Player {
         return "Player{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", goals=" + goals +
+                ", shirtNumber=" + shirtNumber +
+                ", dateOfBirth=" + dateOfBirth +
                 ", position='" + position + '\'' +
                 ", foot='" + foot + '\'' +
                 ", isSenior=" + isSenior +
