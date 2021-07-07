@@ -1,8 +1,13 @@
 package com.mavro.dto;
 
+import java.time.LocalDate;
+
 public class PlayerDetails {
 
     private String name;
+    private int goals = 0;
+    private int shirtNumber;
+    private LocalDate dateOfBirth;
     private String position;
     private String foot;
     private boolean isSenior;
@@ -10,8 +15,11 @@ public class PlayerDetails {
     public PlayerDetails() {
     }
 
-    public PlayerDetails(String name, String position, String foot, boolean isSenior) {
+    public PlayerDetails(String name, int goals, int shirtNumber, LocalDate dateOfBirth, String position, String foot, boolean isSenior) {
         this.name = name;
+        this.goals = goals;
+        this.shirtNumber = shirtNumber;
+        this.dateOfBirth = dateOfBirth;
         this.position = position;
         this.foot = foot;
         this.isSenior = isSenior;
@@ -23,6 +31,30 @@ public class PlayerDetails {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getGoals() {
+        return goals;
+    }
+
+    public void setGoals(int goals) {
+        this.goals = goals;
+    }
+
+    public int getShirtNumber() {
+        return shirtNumber;
+    }
+
+    public void setShirtNumber(int shirtNumber) {
+        this.shirtNumber = shirtNumber;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getPosition() {

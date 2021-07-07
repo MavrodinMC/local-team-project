@@ -39,6 +39,9 @@ public class PlayerService {
 
         Player player = new Player();
         player.setName(playerDetails.getName());
+        player.setGoals(playerDetails.getGoals());
+        player.setShirtNumber(playerDetails.getShirtNumber());
+        player.setDateOfBirth(playerDetails.getDateOfBirth());
         player.setPosition(playerDetails.getPosition());
         player.setFoot(playerDetails.getFoot());
         player.setSenior(playerDetails.isSenior());
