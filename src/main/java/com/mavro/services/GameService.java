@@ -3,10 +3,13 @@ package com.mavro.services;
 import com.mavro.dto.GameDetails;
 import com.mavro.entities.Game;
 import com.mavro.entities.Player;
+import com.mavro.entities.Tournament;
 import com.mavro.exceptions.GameNotFoundException;
+import com.mavro.exceptions.TournamentNotFoundException;
 import com.mavro.exceptions.UserNotFoundException;
 import com.mavro.repositories.GameRepository;
 import com.mavro.repositories.PlayerRepository;
+import com.mavro.repositories.TournamentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,10 +19,12 @@ public class GameService {
 
     private final GameRepository gameRepository;
     private final PlayerRepository playerRepository;
+    private final TournamentRepository tournamentRepository;
 
-    public GameService(GameRepository gameRepository, PlayerRepository playerRepository) {
+    public GameService(GameRepository gameRepository, PlayerRepository playerRepository, TournamentRepository tournamentRepository) {
         this.gameRepository = gameRepository;
         this.playerRepository = playerRepository;
+        this.tournamentRepository = tournamentRepository;
     }
 
     public List<Game> findAll() {
@@ -52,12 +57,15 @@ public class GameService {
 
     }
 
-    public Game updateGame(Game game) {
-        return gameRepository.save(game);
+    public void updateGameInATournament(int tournamentId, Game game) {
+        Tournament tournament = tournamentRepository.findById(tournamentId)
+                .orElseThrow(() -> new TournamentNotFoundException("Not found"));
+        game.setTournament(tournament);
+        gameRepository.save(game);
     }
 
-    public Game findOneById(int id) {
-        return gameRepository.findById(id)
+    public Game findOneById(int gameId) {
+        return gameRepository.findById(gameId)
                 .orElseThrow(() -> new GameNotFoundException("Game not found."));
     }
 

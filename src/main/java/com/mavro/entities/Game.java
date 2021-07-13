@@ -1,5 +1,7 @@
 package com.mavro.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -35,6 +37,7 @@ public class Game {
     private Set<Player> players = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = {"hibernateLazyInitializer","handler"})
     private Tournament tournament;
 
     public Game() {

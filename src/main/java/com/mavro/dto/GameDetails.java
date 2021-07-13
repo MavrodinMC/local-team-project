@@ -6,7 +6,7 @@ public class GameDetails {
     private String location;
     private String homeTeam;
     private String awayTeam;
-    private String score = "Meci inca in desfasurare";
+    private String score = "?-?";
     private String referee;
 
     public GameDetails() {
@@ -67,5 +67,17 @@ public class GameDetails {
 
     public void setReferee(String referee) {
         this.referee = referee;
+    }
+
+    @Override
+    public String toString() {
+        return "GameDetails{" +
+                "date='" + date + '\'' +
+                ", location='" + location + '\'' +
+                ", homeTeam='" + homeTeam + '\'' +
+                ", awayTeam='" + awayTeam + '\'' +
+                ", score='" + score + '\'' +
+                ", referee='" + referee + '\'' +
+                '}';
     }
 }

@@ -45,15 +45,15 @@ public class TournamentController {
         return new ResponseEntity<>(tournamentService.addTournament(request), HttpStatus.CREATED);
     }
 
+    @PostMapping("/game/{tournamentId}")
+    public ResponseEntity<?> addGamesToATournament(@PathVariable("tournamentId") int tournamentId, @RequestBody GameDetails gameDetails) {
+        return new ResponseEntity<>(tournamentService.addGamesToATournament(tournamentId, gameDetails), HttpStatus.CREATED);
+    }
+
     @PutMapping("/update")
     public ResponseEntity<Tournament> updateTournament(@RequestBody Tournament tournament) {
         return status(HttpStatus.OK).body(tournamentService.updateTournament(tournament));
 
-    }
-
-    @PostMapping("/game/{tournamentId}")
-    public ResponseEntity<?> addGamesToATournament(@PathVariable("tournamentId") int tournamentId, @RequestBody GameDetails gameDetails) {
-        return new ResponseEntity<>(tournamentService.addGamesToATournament(tournamentId, gameDetails), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete/{id}")
