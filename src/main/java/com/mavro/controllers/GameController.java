@@ -1,6 +1,5 @@
 package com.mavro.controllers;
 
-import com.mavro.dto.GameDetails;
 import com.mavro.entities.Game;
 import com.mavro.services.GameService;
 import org.springframework.http.HttpStatus;
@@ -8,8 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping(value = "/game")
@@ -26,17 +23,17 @@ public class GameController {
         return new ResponseEntity<>(gameService.findAll(), HttpStatus.OK);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Game> addGame(@RequestBody GameDetails gameDetails) {
-        Game game = gameService.addGame(gameDetails);
+    @GetMapping("/view")
+    public ResponseEntity<Game> findOneById(@RequestParam("gameId") int gameId) {
 
-        return new ResponseEntity<>(game, HttpStatus.CREATED);
+        return new ResponseEntity<>(gameService.findOneById(gameId), HttpStatus.OK);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Game> updateGame(@RequestBody Game game) {
+    @PutMapping("/update/{tournamentId}")
+    public ResponseEntity<Game> updateGame(@PathVariable("tournamentId") int tournamentId, @RequestBody Game game) {
 
-        return status(HttpStatus.OK).body(gameService.updateGame(game));
+        gameService.updateGameInATournament(tournamentId, game);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
