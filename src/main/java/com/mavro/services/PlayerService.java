@@ -35,6 +35,10 @@ public class PlayerService {
                 .collect(Collectors.toList());
     }
 
+    public List<Player> getAllPlayers() {
+        return playerRepository.findAll();
+    }
+
     public Player addPlayer(PlayerDetails playerDetails) {
 
         Player player = new Player();

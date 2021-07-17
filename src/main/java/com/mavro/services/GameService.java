@@ -12,6 +12,7 @@ import com.mavro.repositories.PlayerRepository;
 import com.mavro.repositories.TournamentRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -44,17 +45,24 @@ public class GameService {
         return gameRepository.save(game);
     }
 
-    public void addPlayersToAGame(int gameId, int playerId) {
+    public Game addPlayersToAGame(int gameId, List<Player> players) {
 
         Game game = gameRepository.findById(gameId)
                 .orElseThrow(()-> new UserNotFoundException("Not found."));
 
-        Player player = playerRepository.findById(playerId)
-                .orElseThrow(() -> new UserNotFoundException("Not found."));
+        for(Player player : players) {
+            game.addPlayer(player);
+        }
 
-        game.addPlayer(player);
-        gameRepository.save(game);
+        return gameRepository.save(game);
 
+    }
+
+    public List<Player> getAllPlayersInAGame(int gameId) {
+        Game game = gameRepository.findById(gameId)
+                .orElseThrow(() -> new GameNotFoundException("Not found"));
+
+        return new ArrayList<>(game.getPlayers());
     }
 
     public void updateGameInATournament(int tournamentId, Game game) {

@@ -1,6 +1,7 @@
 package com.mavro.controllers;
 
 import com.mavro.entities.Game;
+import com.mavro.entities.Player;
 import com.mavro.services.GameService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,12 @@ public class GameController {
         return new ResponseEntity<>(gameService.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/players/all/{gameId}")
+    public ResponseEntity<List<Player>> getAllPlayersInAGame(@PathVariable("gameId") int gameId) {
+
+        return new ResponseEntity<>(gameService.getAllPlayersInAGame(gameId), HttpStatus.OK);
+    }
+
     @GetMapping("/view")
     public ResponseEntity<Game> findOneById(@RequestParam("gameId") int gameId) {
 
@@ -34,6 +41,11 @@ public class GameController {
 
         gameService.updateGameInATournament(tournamentId, game);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/players/{gameId}")
+    public ResponseEntity<Game> addPlayersToAGame(@PathVariable("gameId") int gameId, @RequestBody List<Player> players) {
+        return new ResponseEntity<>(gameService.addPlayersToAGame(gameId, players), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
