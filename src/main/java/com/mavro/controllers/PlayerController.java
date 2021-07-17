@@ -21,6 +21,13 @@ public class PlayerController {
         this.service = service;
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<Player>> getAllPlayers() {
+
+
+        return new ResponseEntity<>(service.getAllPlayers(),HttpStatus.OK);
+    }
+
     @GetMapping
     public ResponseEntity<List<Player>> getPlayers(@RequestParam(value = "isSenior") boolean isSenior) {
         if (isSenior) {
