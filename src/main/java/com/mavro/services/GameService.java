@@ -5,6 +5,7 @@ import com.mavro.entities.Game;
 import com.mavro.entities.Player;
 import com.mavro.entities.Tournament;
 import com.mavro.exceptions.GameNotFoundException;
+import com.mavro.exceptions.PlayerNotFoundException;
 import com.mavro.exceptions.TournamentNotFoundException;
 import com.mavro.exceptions.UserNotFoundException;
 import com.mavro.repositories.GameRepository;
@@ -79,5 +80,23 @@ public class GameService {
 
     public void deleteGameById(int id) {
         gameRepository.deleteById(id);
+    }
+
+    public Game deleteAPlayerFromGameList(int gameId, int playerId) {
+        Game game = gameRepository.findById(gameId)
+                .orElseThrow(() -> new GameNotFoundException("Not found"));
+
+        Player player = playerRepository.findById(playerId)
+                .orElseThrow(() -> new PlayerNotFoundException("Not found"));
+
+       List<Player> playerList = new ArrayList<>(game.getPlayers());
+
+       for(Player playerToDelete : playerList) {
+           if(playerToDelete.getId().equals(player.getId())) {
+               game.removePlayer(playerToDelete);
+           }
+       }
+
+       return gameRepository.save(game);
     }
 }
