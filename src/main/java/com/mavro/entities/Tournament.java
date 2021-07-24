@@ -15,6 +15,10 @@ public class Tournament {
 
     private String name;
 
+    @Column(name = "active_tournament")
+    private boolean isActive;
+
+
     @JsonIgnore
     @OneToMany(
             mappedBy = "tournament",
@@ -26,8 +30,9 @@ public class Tournament {
     public Tournament() {
     }
 
-    public Tournament(String name) {
+    public Tournament(String name, boolean isActive) {
         this.name = name;
+        this.isActive = isActive;
     }
 
     public Integer getId() {
@@ -46,6 +51,14 @@ public class Tournament {
         this.name = name;
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
     public List<Game> getGames() {
         return games;
     }
@@ -62,5 +75,14 @@ public class Tournament {
     public void removeGame(Game game) {
         games.remove(game);
         game.setTournament(null);
+    }
+
+    @Override
+    public String toString() {
+        return "Tournament{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", isActive=" + isActive +
+                '}';
     }
 }

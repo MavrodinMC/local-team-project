@@ -55,7 +55,7 @@ public class GameController {
     }
 
     @DeleteMapping("/players/delete/{gameId}/{playerId}")
-    public ResponseEntity<Game> deleteAPlayerFromGameList(@PathVariable("gameId") int gameId, @PathVariable("playerId") int playerId){
+    public ResponseEntity<?> deleteAPlayerFromGameList(@PathVariable("gameId") int gameId, @PathVariable("playerId") int playerId){
 
         gameService.deleteAPlayerFromGameList(gameId, playerId);
         return new ResponseEntity<>(HttpStatus.OK);

@@ -59,7 +59,7 @@ public class PlayerService {
 
     public Player findOneById(int playerId) {
         return playerRepository.findById(playerId)
-                .orElseThrow(() -> new PlayerNotFoundException("Player not found."));
+                .orElseThrow(() -> new PlayerNotFoundException("The requested player was not found."));
     }
 
     public void deletePlayerById(int id){

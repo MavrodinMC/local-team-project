@@ -7,7 +7,6 @@ import com.mavro.entities.Tournament;
 import com.mavro.exceptions.GameNotFoundException;
 import com.mavro.exceptions.PlayerNotFoundException;
 import com.mavro.exceptions.TournamentNotFoundException;
-import com.mavro.exceptions.UserNotFoundException;
 import com.mavro.repositories.GameRepository;
 import com.mavro.repositories.PlayerRepository;
 import com.mavro.repositories.TournamentRepository;
@@ -49,7 +48,7 @@ public class GameService {
     public Game addPlayersToAGame(int gameId, List<Player> players) {
 
         Game game = gameRepository.findById(gameId)
-                .orElseThrow(()-> new UserNotFoundException("Not found."));
+                .orElseThrow(()-> new GameNotFoundException("The requested game was not found."));
 
         for(Player player : players) {
             game.addPlayer(player);
@@ -60,34 +59,37 @@ public class GameService {
     }
 
     public List<Player> getAllPlayersInAGame(int gameId) {
+
         Game game = gameRepository.findById(gameId)
-                .orElseThrow(() -> new GameNotFoundException("Not found"));
+                .orElseThrow(() -> new GameNotFoundException("The requested game was not found."));
 
         return new ArrayList<>(game.getPlayers());
     }
 
     public void updateGameInATournament(int tournamentId, Game game) {
+
         Tournament tournament = tournamentRepository.findById(tournamentId)
-                .orElseThrow(() -> new TournamentNotFoundException("Not found"));
+                .orElseThrow(() -> new TournamentNotFoundException("The requested tournament was not found."));
         game.setTournament(tournament);
         gameRepository.save(game);
     }
 
     public Game findOneById(int gameId) {
         return gameRepository.findById(gameId)
-                .orElseThrow(() -> new GameNotFoundException("Game not found."));
+                .orElseThrow(() -> new GameNotFoundException("The requested game was not found."));
     }
 
     public void deleteGameById(int id) {
         gameRepository.deleteById(id);
     }
 
-    public Game deleteAPlayerFromGameList(int gameId, int playerId) {
+    public void deleteAPlayerFromGameList(int gameId, int playerId) {
+
         Game game = gameRepository.findById(gameId)
-                .orElseThrow(() -> new GameNotFoundException("Not found"));
+                .orElseThrow(() -> new GameNotFoundException("The requested game was not found."));
 
         Player player = playerRepository.findById(playerId)
-                .orElseThrow(() -> new PlayerNotFoundException("Not found"));
+                .orElseThrow(() -> new PlayerNotFoundException("The requested player was not found."));
 
        List<Player> playerList = new ArrayList<>(game.getPlayers());
 
@@ -97,6 +99,6 @@ public class GameService {
            }
        }
 
-       return gameRepository.save(game);
+        gameRepository.save(game);
     }
 }

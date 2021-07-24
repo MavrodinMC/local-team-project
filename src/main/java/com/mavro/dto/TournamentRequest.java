@@ -3,12 +3,14 @@ package com.mavro.dto;
 public class TournamentRequest {
 
     private String name;
+    private boolean isActive = true;
 
     public TournamentRequest() {
     }
 
-    public TournamentRequest(String name) {
+    public TournamentRequest(String name, boolean isActive) {
         this.name = name;
+        this.isActive = isActive;
     }
 
     public String getName() {
@@ -19,10 +21,11 @@ public class TournamentRequest {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "TournamentRequest{" +
-                "name='" + name + '\'' +
-                '}';
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }
