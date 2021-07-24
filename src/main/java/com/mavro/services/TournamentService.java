@@ -32,6 +32,7 @@ public class TournamentService {
     public Tournament addTournament(TournamentRequest request) {
         Tournament tournament = new Tournament();
         tournament.setName(request.getName());
+        tournament.setActive(request.isActive());
         tournamentRepository.save(tournament);
         return tournament;
     }
@@ -39,7 +40,7 @@ public class TournamentService {
     public Game addGamesToATournament(int tournamentId, GameDetails gameDetails) {
         Game game = gameService.addGame(gameDetails);
         Tournament tournament = tournamentRepository.findById(tournamentId)
-                .orElseThrow(() -> new TournamentNotFoundException("Not found."));
+                .orElseThrow(() -> new TournamentNotFoundException("The requested tournament was not found."));
         tournament.addGame(game);
         gameRepository.save(game);
         return game;
@@ -52,13 +53,13 @@ public class TournamentService {
     public Tournament findOneById(int tournamentId) {
         return tournamentRepository.findById(tournamentId)
                 .orElseThrow(() ->
-                             new TournamentNotFoundException("Tournament not found."));
+                             new TournamentNotFoundException("The requested tournament was not found."));
     }
 
     public List<Game> getGamesList(int tournamentId) {
       Tournament tournament = tournamentRepository.findById(tournamentId)
               .orElseThrow(() ->
-                          new TournamentNotFoundException("Not found"));
+                          new TournamentNotFoundException("The requested tournament was not found."));
 
       return tournament.getGames();
     }

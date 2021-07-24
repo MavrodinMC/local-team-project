@@ -61,7 +61,7 @@ public class RegistrationService {
         org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.
                 getContext().getAuthentication().getPrincipal();
         return userRepository.findUserByUsername(principal.getUsername())
-                .orElseThrow(() -> new UserNotFoundException("User not found!"));
+                .orElseThrow(() -> new UserNotFoundException("User not found."));
     }
 
     public AuthenticationResponse login(LoginRequest loginRequest){
