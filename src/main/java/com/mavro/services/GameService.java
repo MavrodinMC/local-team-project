@@ -66,6 +66,14 @@ public class GameService {
         return new ArrayList<>(game.getPlayers());
     }
 
+    public List<Player> getAllPlayers(int gameId) {
+        Game game = gameRepository.findById((gameId))
+                .orElseThrow(() -> new GameNotFoundException("Game was not found."));
+        List<Player> playerList = playerRepository.findAll();
+        playerList.removeIf(player -> game.getPlayers().contains(player));
+        return playerList;
+    }
+
     public void updateGameInATournament(int tournamentId, Game game) {
 
         Tournament tournament = tournamentRepository.findById(tournamentId)
