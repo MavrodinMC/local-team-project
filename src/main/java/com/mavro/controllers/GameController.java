@@ -30,6 +30,11 @@ public class GameController {
         return new ResponseEntity<>(gameService.getAllPlayersInAGame(gameId), HttpStatus.OK);
     }
 
+    @GetMapping("/players/list/{gameId}")
+    public ResponseEntity<List<Player>> getAllPlayersToList(@PathVariable("gameId") int gameId) {
+        return new ResponseEntity<>(gameService.getAllPlayers(gameId), HttpStatus.OK);
+    }
+
     @GetMapping("/view")
     public ResponseEntity<Game> findOneById(@RequestParam("gameId") int gameId) {
 

@@ -3,6 +3,7 @@ package com.mavro.services;
 import com.mavro.dto.PlayerDetails;
 import com.mavro.entities.Player;
 import com.mavro.exceptions.PlayerNotFoundException;
+import com.mavro.repositories.GameRepository;
 import com.mavro.repositories.PlayerRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
@@ -14,9 +15,11 @@ import java.util.stream.Collectors;
 public class PlayerService {
 
     private final PlayerRepository playerRepository;
+    private final GameRepository gameRepository;
 
-    public PlayerService(PlayerRepository playerRepository) {
+    public PlayerService(PlayerRepository playerRepository, GameRepository gameRepository) {
         this.playerRepository = playerRepository;
+        this.gameRepository = gameRepository;
     }
 
     @Query("SELECT p FROM Player p WHERE p.seniority = ?")
@@ -33,10 +36,6 @@ public class PlayerService {
                 .stream()
                 .filter(p -> !p.isSenior())
                 .collect(Collectors.toList());
-    }
-
-    public List<Player> getAllPlayers() {
-        return playerRepository.findAll();
     }
 
     public Player addPlayer(PlayerDetails playerDetails) {
