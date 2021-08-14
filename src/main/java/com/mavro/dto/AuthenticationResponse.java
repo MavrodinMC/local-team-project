@@ -9,6 +9,7 @@ public class AuthenticationResponse {
    private String refreshToken;
    private String username;
    private Instant expiresAt;
+   private String message;
 
     public AuthenticationResponse() {
     }
@@ -50,5 +51,13 @@ public class AuthenticationResponse {
 
     public void setExpiresAt(Instant expiresAt) {
         this.expiresAt = expiresAt;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }
