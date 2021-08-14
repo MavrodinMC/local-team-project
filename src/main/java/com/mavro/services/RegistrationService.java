@@ -12,6 +12,7 @@ import com.mavro.repositories.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -66,18 +67,26 @@ public class RegistrationService {
 
     public AuthenticationResponse login(LoginRequest loginRequest){
 
-        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
-                loginRequest.getPassword()));
+      try {
+          Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
+                  loginRequest.getPassword()));
 
-        SecurityContextHolder.getContext().setAuthentication(authenticate);
-        String token = jwtProvider.generateToken(authenticate);
-        AuthenticationResponse response = new AuthenticationResponse();
-        response.setAuthenticationToken(token);
-        response.setRefreshToken(refreshTokenService.generateRefreshToken().getToken());
-        response.setExpiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()));
-        response.setUsername(loginRequest.getUsername());
 
-        return response;
+          SecurityContextHolder.getContext().setAuthentication(authenticate);
+          String token = jwtProvider.generateToken(authenticate);
+          AuthenticationResponse response = new AuthenticationResponse();
+          response.setAuthenticationToken(token);
+          response.setRefreshToken(refreshTokenService.generateRefreshToken().getToken());
+          response.setExpiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()));
+          response.setUsername(loginRequest.getUsername());
+          response.setMessage("Authentication success.");
+
+          return response;
+      }  catch (AuthenticationException e) {
+          AuthenticationResponse response = new AuthenticationResponse();
+          response.setMessage("Bad credentials.");
+          return response;
+      }
     }
 
 //    public boolean isLoggedIn() {
