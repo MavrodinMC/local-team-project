@@ -39,7 +39,7 @@ public class RegisterController {
         return service.refreshToken(refreshTokenRequest);
     }
 
-    @RequestMapping(value = "/logout", method = { RequestMethod.POST })
+    @PostMapping(value = "/logout")
     public ResponseEntity<String> logout(@RequestBody RefreshTokenRequest refreshTokenRequest) {
         refreshTokenService.deleteRefreshToken(refreshTokenRequest.getRefreshToken());
         return ResponseEntity.status(HttpStatus.OK).body("Refresh Token Deleted Successfully!");
