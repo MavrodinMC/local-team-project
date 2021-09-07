@@ -71,7 +71,6 @@ public class RegistrationService {
           Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
                   loginRequest.getPassword()));
 
-
           SecurityContextHolder.getContext().setAuthentication(authenticate);
           String token = jwtProvider.generateToken(authenticate);
           AuthenticationResponse response = new AuthenticationResponse();
@@ -104,6 +103,7 @@ public class RegistrationService {
       response.setRefreshToken(refreshTokenRequest.getRefreshToken());
       response.setExpiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()));
       response.setUsername(refreshTokenRequest.getUsername());
+      response.setMessage("Token refreshed");
 
       return response;
     }

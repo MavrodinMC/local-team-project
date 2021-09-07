@@ -1,7 +1,7 @@
 package com.mavro.entities;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Entity
 @Table(name = "refresh_token")
@@ -15,12 +15,12 @@ public class RefreshToken {
     private String token;
 
     @Column(name = "created_date")
-    private LocalDateTime createdDate;
+    private Instant createdDate;
 
     public RefreshToken() {
     }
 
-    public RefreshToken(Integer id, String token, LocalDateTime createdDate) {
+    public RefreshToken(Integer id, String token, Instant createdDate) {
         this.id = id;
         this.token = token;
         this.createdDate = createdDate;
@@ -42,11 +42,11 @@ public class RefreshToken {
         this.token = token;
     }
 
-    public LocalDateTime getCreatedDate() {
+    public Instant getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
+    public void setCreatedDate(Instant createdDate) {
         this.createdDate = createdDate;
     }
 
