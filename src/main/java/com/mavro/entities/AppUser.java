@@ -6,7 +6,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class AppUser{
+public class AppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +18,7 @@ public class AppUser{
 
     private String password;
 
-    public AppUser(){};
+    public AppUser(){}
 
     public AppUser(String username, String password) {
         this.username = username;

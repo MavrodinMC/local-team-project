@@ -6,7 +6,7 @@ import com.mavro.repositories.RefreshTokenRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 @Service
@@ -24,7 +24,7 @@ public class RefreshTokenService {
         RefreshToken refreshToken = new RefreshToken();
 
         refreshToken.setToken(UUID.randomUUID().toString());
-        refreshToken.setCreatedDate(LocalDateTime.now());
+        refreshToken.setCreatedDate(Instant.now());
 
         return refreshTokenRepository.save(refreshToken);
     }

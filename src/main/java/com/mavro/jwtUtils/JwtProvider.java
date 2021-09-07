@@ -3,9 +3,11 @@ package com.mavro.jwtUtils;
 import com.mavro.exceptions.ProjectException;
 import com.mavro.services.impl.MyAppUserDetails;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -15,6 +17,7 @@ import java.security.*;
 import java.security.cert.CertificateException;
 import java.sql.Date;
 import java.time.Instant;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtProvider {
@@ -36,10 +39,14 @@ public class JwtProvider {
     }
 
     public String generateToken(Authentication authentication) {
+        String authorities = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
         MyAppUserDetails principal = (MyAppUserDetails) authentication.getPrincipal();
 
         return Jwts.builder()
                 .setSubject(principal.getUsername())
+                .claim("role", authorities)
                 .signWith(getPrivateKey())
                 .setExpiration(Date.from(Instant.now().plusMillis(jwtExpirationInMillis)))
                 .compact();
@@ -64,9 +71,13 @@ public class JwtProvider {
     }
 
     public boolean validateToken(String jwt) {
-        Jwts.parser().setSigningKey(getPublicKey()).parseClaimsJws(jwt);
-
-        return true;
+        try {
+            Jwts.parser().setSigningKey(getPublicKey()).parseClaimsJws(jwt);
+            return true;
+        } catch (ExpiredJwtException e) {
+            e.getMessage();
+        }
+        return false;
     }
 
     private PublicKey getPublicKey() {

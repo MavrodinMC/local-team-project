@@ -34,7 +34,7 @@ public class RegisterController {
         return service.login(loginRequest);
     }
 
-    @PostMapping("refresh/token")
+    @PostMapping("/refresh/token")
     public AuthenticationResponse refreshTokens(@RequestBody RefreshTokenRequest refreshTokenRequest) {
         return service.refreshToken(refreshTokenRequest);
     }

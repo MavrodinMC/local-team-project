@@ -22,6 +22,7 @@ public class GameService {
     private final PlayerRepository playerRepository;
     private final TournamentRepository tournamentRepository;
 
+
     public GameService(GameRepository gameRepository, PlayerRepository playerRepository, TournamentRepository tournamentRepository) {
         this.gameRepository = gameRepository;
         this.playerRepository = playerRepository;
