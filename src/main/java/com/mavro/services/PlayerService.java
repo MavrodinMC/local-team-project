@@ -2,6 +2,7 @@ package com.mavro.services;
 
 import com.mavro.dto.PlayerDetails;
 import com.mavro.entities.Player;
+import com.mavro.exceptions.EmptyInputException;
 import com.mavro.exceptions.PlayerNotFoundException;
 import com.mavro.repositories.GameRepository;
 import com.mavro.repositories.PlayerRepository;
@@ -48,8 +49,16 @@ public class PlayerService {
         player.setPosition(playerDetails.getPosition());
         player.setFoot(playerDetails.getFoot());
         player.setSenior(playerDetails.isSenior());
-        playerRepository.save(player);
-        return player;
+
+        if(playerDetails.getName().isEmpty() || playerDetails.getName().length() == 0
+           || playerDetails.getShirtNumber() < 1 || playerDetails.getGoals() < 0 || playerDetails.getPosition().isEmpty()
+           || playerDetails.getPosition().length() == 0 || playerDetails.getFoot().isEmpty()
+           || playerDetails.getFoot().length() == 0) {
+            throw new EmptyInputException();
+        } else {
+            playerRepository.save(player);
+            return player;
+        }
     }
 
     public Player updatePlayer(Player player) {
@@ -58,7 +67,7 @@ public class PlayerService {
 
     public Player findOneById(int playerId) {
         return playerRepository.findById(playerId)
-                .orElseThrow(() -> new PlayerNotFoundException("The requested player was not found."));
+                .orElseThrow(PlayerNotFoundException::new);
     }
 
     public void deletePlayerById(int id){
