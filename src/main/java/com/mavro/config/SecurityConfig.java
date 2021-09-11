@@ -47,8 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/api/**").permitAll()
-                .anyRequest().hasAuthority("ADMIN")
+                .anyRequest().permitAll()
                 .and()
                 .cors().and().csrf().disable();
 //        http.sessionManagement().sessionCreationPolicy(STATELESS);

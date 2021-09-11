@@ -1,5 +1,6 @@
 package com.mavro.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,6 +24,7 @@ public class Player {
 
     @Column(name = "date_of_birth")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate dateOfBirth;
 
     private String position;

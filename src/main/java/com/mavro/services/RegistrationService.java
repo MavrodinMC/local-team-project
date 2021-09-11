@@ -79,7 +79,6 @@ public class RegistrationService {
           response.setExpiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()));
           response.setUsername(loginRequest.getUsername());
           response.setMessage("Authentication success.");
-
           return response;
       }  catch (AuthenticationException e) {
           AuthenticationResponse response = new AuthenticationResponse();
