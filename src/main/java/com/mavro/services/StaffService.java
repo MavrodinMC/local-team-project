@@ -20,18 +20,18 @@ public class StaffService {
         return staffRepository.findAll();
     }
 
-    public void addStaffMember(StaffDetails staffDetails) {
+    public Staff addStaffMember(StaffDetails staffDetails) {
         Staff staffMember = new Staff();
 
         staffMember.setName(staffDetails.getName());
         staffMember.setRole(staffDetails.getRole());
         staffMember.setAge(staffDetails.getAge());
 
-        staffRepository.save(staffMember);
+       return staffRepository.save(staffMember);
     }
 
-    public void updateStaffMember(Staff staff) {
-         staffRepository.save(staff);
+    public Staff updateStaffMember(Staff staff) {
+        return staffRepository.save(staff);
     }
 
     public void deleteStaffMemberById(int id) {

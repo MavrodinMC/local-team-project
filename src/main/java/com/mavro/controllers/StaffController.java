@@ -26,20 +26,19 @@ public class StaffController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addStaffMember(@RequestBody StaffDetails staffDetails) {
-        staffService.addStaffMember(staffDetails);
-        return new ResponseEntity<>("Staff member created",HttpStatus.CREATED);
+    public ResponseEntity<Staff> addStaffMember(@RequestBody StaffDetails staffDetails) {
+        return new ResponseEntity<>(staffService.addStaffMember(staffDetails),HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<String> updateStaffMember(@RequestBody Staff staff) {
+    public ResponseEntity<Staff> updateStaffMember(@RequestBody Staff staff) {
         staffService.updateStaffMember(staff);
-        return new ResponseEntity<>("Staff member updated", HttpStatus.OK);
+        return new ResponseEntity<>(staffService.updateStaffMember(staff), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{staffId}")
-    public ResponseEntity<String> deleteStaffMemberById(@PathVariable("staffId") int staffId) {
+    public ResponseEntity<?> deleteStaffMemberById(@PathVariable("staffId") int staffId) {
         staffService.deleteStaffMemberById(staffId);
-        return new ResponseEntity<>("Staff member deleted", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
