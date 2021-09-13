@@ -69,15 +69,4 @@ public class GameDetails {
         this.referee = referee;
     }
 
-    @Override
-    public String toString() {
-        return "GameDetails{" +
-                "date='" + date + '\'' +
-                ", location='" + location + '\'' +
-                ", homeTeam='" + homeTeam + '\'' +
-                ", awayTeam='" + awayTeam + '\'' +
-                ", score='" + score + '\'' +
-                ", referee='" + referee + '\'' +
-                '}';
-    }
 }

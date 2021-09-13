@@ -27,7 +27,7 @@ public class StaffController {
 
     @PostMapping("/add")
     public ResponseEntity<Staff> addStaffMember(@RequestBody StaffDetails staffDetails) {
-        return new ResponseEntity<>(staffService.addStaffMember(staffDetails),HttpStatus.CREATED);
+        return new ResponseEntity<>(staffService.addStaffMember(staffDetails), HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
